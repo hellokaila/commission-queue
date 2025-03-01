@@ -32,10 +32,12 @@
 
     <script>
 async function fetchQueue() {
-    let jsonURL = "https://hellokaila.github.io/commission-queue/commission_queue.json"; // Update with your GitHub URL
+    let googleScriptURL = "https://script.google.com/macros/s/AKfycbyKdgSA7JpRwfHqt3RYxoCCwePmmDfaSniRtHBtfcLQn_RLE3M6ITwplj6qv89mTy819w/exec"; // Replace with your Apps Script URL
 
     try {
-        let response = await fetch(jsonURL);
+        let response = await fetch(googleScriptURL);
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        
         let data = await response.json();
         let table = document.getElementById("queueTable");
         table.innerHTML = "";
@@ -59,6 +61,7 @@ async function fetchQueue() {
 }
 
 fetchQueue();
+
 
     </script>
 </body>
