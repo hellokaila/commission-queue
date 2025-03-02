@@ -95,17 +95,18 @@ tr:hover {
 
     <script>
 async function fetchQueue() {
-    let googleScriptURL = "https://script.google.com/macros/s/AKfycbw8WjBxkwLQj6irHpVBaLUf5NJ3ONgsUBqpLym3VJU86w70g5OGsKNzAE8LePLSzmjDNQ/exec"; // Replace with your Apps Script URL
+    let googleScriptURL = "https://script.google.com/macros/s/AKfycbw8WjBxkwLQj6irHpVBaLUf5NJ3ONgsUBqpLym3VJU86w70g5OGsKNzAE8LePLSzmjDNQ/exec?t=" + new Date().getTime(); // Avoid caching issues
 
     try {
         let response = await fetch(googleScriptURL);
-        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-        
         let data = await response.json();
         let table = document.getElementById("queueTable");
         table.innerHTML = "";
 
-        data.forEach(order => {
+        // Filter out completed commissions before displaying
+        let filteredData = data.filter(order => order.status.toLowerCase() !== "completed");
+
+        filteredData.forEach(order => {
             let rowClass = order.paymentStatus === "Not Paid" ? "not-paid" : "";
             let row = `<tr class="${rowClass}">
                 <td>${order.queueNumber}</td>
@@ -124,6 +125,7 @@ async function fetchQueue() {
 }
 
 fetchQueue();
+
 
 
     </script>
