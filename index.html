@@ -85,7 +85,6 @@ tr:hover {
                 <th>Type</th>
                 <th>ETA</th>
                 <th>Status</th>
-                <th>Paid</th>
             </tr>
         </thead>
         <tbody id="queueTable">
@@ -114,7 +113,6 @@ async function fetchQueue() {
                 <td>${order.commissionType}</td>
                 <td>${order.estimatedCompletionDate}</td>
                 <td>${order.status}</td>
-                <td>${order.paymentStatus}</td>
             </tr>`;
             table.innerHTML += row;
         });
